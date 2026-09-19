@@ -78,22 +78,51 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-72 p-0">
-            <div className="flex h-14 items-center border-b px-4">
-              <span className="flex items-center gap-2 font-semibold">
-                <Package className="h-5 w-5 text-primary" />
-                {APP_NAME}
+            <div className="flex h-16 items-center gap-3 border-b px-4">
+              <span
+                aria-hidden="true"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-sm"
+              >
+                <Package className="h-5 w-5" />
               </span>
+              <span className="font-semibold">{APP_NAME}</span>
             </div>
-            <nav className="flex flex-col gap-1 p-3">
-              {getNavItemsForRole(user?.role).map((item) => {
-                const Icon = item.icon
-                return (
-                  <NavLink key={item.to} to={item.to} disabled={!item.enabled}>
-                    <Icon className="h-4 w-4" />
-                    {t(item.labelKey)}
-                  </NavLink>
-                )
-              })}
+            <nav className="flex flex-col gap-4 p-3">
+              {getNavItemsForRole(user?.role).map((section) => (
+                <div key={section.id} className="flex flex-col gap-1">
+                  {section.labelKey ? (
+                    <div className="flex items-center gap-2 px-3 pb-1">
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          'h-1.5 w-1.5 rounded-full',
+                          section.tone === 'primary' && 'bg-primary',
+                          section.tone === 'amber' && 'bg-amber-500',
+                          section.tone === 'emerald' && 'bg-emerald-500',
+                          section.tone === 'sky' && 'bg-sky-500',
+                        )}
+                      />
+                      <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        {t(section.labelKey)}
+                      </h2>
+                    </div>
+                  ) : null}
+                  {section.items.map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <NavLink
+                        key={item.to}
+                        to={item.to}
+                        disabled={!item.enabled}
+                        tone={section.tone}
+                        icon={<Icon className="h-4 w-4" />}
+                      >
+                        {t(item.labelKey)}
+                      </NavLink>
+                    )
+                  })}
+                </div>
+              ))}
             </nav>
           </SheetContent>
         </Sheet>

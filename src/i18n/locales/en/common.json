@@ -7,10 +7,27 @@
     "dashboard": "Dashboard",
     "inventory": "Inventory",
     "products": "Products",
+    "ingredients": "Ingredients",
+    "recipes": "Menu Recipes",
+    "suppliers": "Suppliers",
+    "stock": "Ingredient Stock",
+    "stockOpname": "Stock Opname",
+    "stockMovement": "Stock Movement",
+    "waste": "Waste",
+    "purchaseOrders": "Purchase Orders",
+    "stockReport": "Stock Report",
+    "usageReport": "Usage Report",
+    "recipeCost": "Recipe Cost",
+    "lowStockAlerts": "Low Stock Alerts",
     "settings": "Settings",
     "logout": "Logout",
     "menu": "Menu",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "section": {
+      "masterData": "Master Data",
+      "operasional": "Operations",
+      "laporan": "Reports"
+    }
   },
   "common": {
     "search": "Search",

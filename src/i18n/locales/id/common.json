@@ -7,10 +7,27 @@
     "dashboard": "Dasbor",
     "inventory": "Inventaris",
     "products": "Produk",
+    "ingredients": "Bahan",
+    "recipes": "Resep Menu",
+    "suppliers": "Supplier",
+    "stock": "Stok Bahan",
+    "stockOpname": "Stok Opname",
+    "stockMovement": "Mutasi Stok",
+    "waste": "Pembuangan",
+    "purchaseOrders": "Pembelian",
+    "stockReport": "Laporan Stok",
+    "usageReport": "Laporan Penggunaan",
+    "recipeCost": "HPP Menu",
+    "lowStockAlerts": "Peringatan Stok",
     "settings": "Pengaturan",
     "logout": "Keluar",
     "menu": "Menu",
-    "comingSoon": "Segera hadir"
+    "comingSoon": "Segera hadir",
+    "section": {
+      "masterData": "Master Data",
+      "operasional": "Operasional",
+      "laporan": "Laporan"
+    }
   },
   "common": {
     "search": "Cari",
