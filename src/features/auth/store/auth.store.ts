@@ -9,6 +9,7 @@ import type { AuthCredentials, AuthResponse, RegisterPayload, User } from '../ty
 interface AuthState {
   user: User | null
   token: string | null
+  activeRestaurantId: string | null
   isAuthenticated: boolean
   isLoading: boolean
   error: string | null
@@ -20,11 +21,19 @@ interface AuthState {
   hydrate: () => void
 }
 
+interface PersistedAuthState {
+  user: User | null
+  token: string | null
+  activeRestaurantId: string | null
+  isAuthenticated: boolean
+}
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
       token: null,
+      activeRestaurantId: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
@@ -36,6 +45,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: response.user,
             token: response.token,
+            activeRestaurantId: response.activeRestaurantId,
             isAuthenticated: true,
             isLoading: false,
           })
@@ -54,6 +64,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: response.user,
             token: response.token,
+            activeRestaurantId: response.activeRestaurantId,
             isAuthenticated: true,
             isLoading: false,
           })
@@ -67,7 +78,13 @@ export const useAuthStore = create<AuthState>()(
 
       logout() {
         void authService.logout()
-        set({ user: null, token: null, isAuthenticated: false, error: null })
+        set({
+          user: null,
+          token: null,
+          activeRestaurantId: null,
+          isAuthenticated: false,
+          error: null,
+        })
         storage.remove('inventory.auth')
       },
 
@@ -81,6 +98,7 @@ export const useAuthStore = create<AuthState>()(
           set({
             user: session.user,
             token: session.token,
+            activeRestaurantId: session.activeRestaurantId,
             isAuthenticated: true,
           })
         }
@@ -88,9 +106,10 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'inventory.auth',
-      partialize: (state) => ({
+      partialize: (state): PersistedAuthState => ({
         user: state.user,
         token: state.token,
+        activeRestaurantId: state.activeRestaurantId,
         isAuthenticated: state.isAuthenticated,
       }),
     },

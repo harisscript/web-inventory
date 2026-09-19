@@ -1,0 +1,14 @@
+{
+  "selectRestaurantTitle": "Pilih Restoran",
+  "selectRestaurantSubtitle": "Pilih restoran yang ingin Anda kelola inventarisnya sebelum masuk.",
+  "selectRestaurant": "Pilih restoran ini",
+  "loggedInTo": "Masuk ke",
+  "changeRestaurant": "Ganti restoran",
+  "loadingRestaurants": "Memuat daftar restoran…",
+  "emptyState": "Belum ada restoran yang tersedia untuk akun Anda.",
+  "ownerOf": "Pemilik",
+  "errorLoading": "Gagal memuat daftar restoran",
+  "ownerAccess": "Akses 2 restoran",
+  "singleAccess": "Akses 1 restoran",
+  "demoOwnerHint": "Login sebagai owner@kopikita.com untuk mencoba切换 restoran."
+}

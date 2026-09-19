@@ -8,6 +8,8 @@ import enAuth from '@/features/auth/locales/en.json'
 import idAuth from '@/features/auth/locales/id.json'
 import enInventory from '@/features/inventory/locales/en.json'
 import idInventory from '@/features/inventory/locales/id.json'
+import enRestaurant from '@/features/restaurant/locales/en.json'
+import idRestaurant from '@/features/restaurant/locales/id.json'
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '@/shared/config/constants'
 
 export const i18nResources = {
@@ -15,15 +17,17 @@ export const i18nResources = {
     common: enCommon,
     auth: enAuth,
     inventory: enInventory,
+    restaurant: enRestaurant,
   },
   id: {
     common: idCommon,
     auth: idAuth,
     inventory: idInventory,
+    restaurant: idRestaurant,
   },
 } as const
 
-export const NAMESPACES = ['common', 'auth', 'inventory'] as const
+export const NAMESPACES = ['common', 'auth', 'inventory', 'restaurant'] as const
 
 void i18n
   .use(LanguageDetector)

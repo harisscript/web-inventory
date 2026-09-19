@@ -19,7 +19,11 @@ import { Input } from '@/shared/components/ui/input'
 import { useAuth } from '../hooks/use-auth'
 import { loginSchema, type LoginInput } from '../schemas/auth.schema'
 
-export function LoginForm() {
+interface LoginFormProps {
+  restaurantId: string
+}
+
+export function LoginForm({ restaurantId }: LoginFormProps) {
   const { t } = useTranslation(['auth', 'common'])
   const navigate = useNavigate()
   const { login, isLoading } = useAuth()
@@ -31,7 +35,7 @@ export function LoginForm() {
 
   const onSubmit = async (values: LoginInput) => {
     try {
-      await login(values)
+      await login({ ...values, restaurantId })
       toast.success(t('loginSuccess'))
       void navigate('/inventory', { replace: true })
     } catch (err) {

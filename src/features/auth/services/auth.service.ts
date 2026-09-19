@@ -5,13 +5,85 @@ import type { AuthCredentials, AuthResponse, RegisterPayload, User } from '../ty
 
 const STORAGE_KEY = 'inventory.auth.users'
 const SESSION_KEY = 'inventory.auth.session'
+const SEED_FLAG_KEY = 'inventory.auth.seeded'
 
 interface StoredUser extends User {
   password: string
 }
 
+const SEED_PASSWORD = 'password123'
+
+function buildSeedUsers(): StoredUser[] {
+  const warung = 'rst_warung_nusantara'
+  const sakura = 'rst_sakura_ramen'
+  const now = new Date().toISOString()
+
+  return [
+    {
+      id: 'usr_seed_owner',
+      email: 'owner@kopikita.com',
+      name: 'Andi Wijaya',
+      password: SEED_PASSWORD,
+      role: 'owner',
+      createdAt: now,
+      restaurantIds: [warung, sakura],
+    },
+    {
+      id: 'usr_seed_manager_warung',
+      email: 'manager.warung@kopikita.com',
+      name: 'Siti Aminah',
+      password: SEED_PASSWORD,
+      role: 'manager',
+      createdAt: now,
+      restaurantIds: [warung],
+    },
+    {
+      id: 'usr_seed_manager_sakura',
+      email: 'manager.sakura@kopikita.com',
+      name: 'Hiroshi Tanaka',
+      password: SEED_PASSWORD,
+      role: 'manager',
+      createdAt: now,
+      restaurantIds: [sakura],
+    },
+    {
+      id: 'usr_seed_staff_warung',
+      email: 'staff.warung@kopikita.com',
+      name: 'Joko Susilo',
+      password: SEED_PASSWORD,
+      role: 'staff',
+      createdAt: now,
+      restaurantIds: [warung],
+    },
+    {
+      id: 'usr_seed_staff_sakura',
+      email: 'staff.sakura@kopikita.com',
+      name: 'Yuki Sato',
+      password: SEED_PASSWORD,
+      role: 'staff',
+      createdAt: now,
+      restaurantIds: [sakura],
+    },
+  ]
+}
+
+function ensureSeed(users: StoredUser[]): StoredUser[] {
+  const alreadySeeded = storage.get<boolean>(SEED_FLAG_KEY, false)
+  if (alreadySeeded) return users
+  storage.set(SEED_FLAG_KEY, true)
+  const seed = buildSeedUsers()
+  storage.set(STORAGE_KEY, seed)
+  return seed
+}
+
 function loadUsers(): StoredUser[] {
-  return storage.get<StoredUser[]>(STORAGE_KEY, [])
+  const stored = storage.get<StoredUser[] | null>(STORAGE_KEY, null)
+  const users = stored && Array.isArray(stored) ? stored : []
+  if (users.length === 0) return ensureSeed(users)
+  if (!storage.get<boolean>(SEED_FLAG_KEY, false)) {
+    storage.set(SEED_FLAG_KEY, true)
+  }
+  return users
 }
 
 function saveUsers(users: StoredUser[]): void {
@@ -26,6 +98,11 @@ function generateToken(): string {
   return `tok_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`
 }
 
+function toSafeUser(user: StoredUser): User {
+  const { password: _password, ...safe } = user
+  return safe
+}
+
 export const authService = {
   async login(credentials: AuthCredentials): Promise<AuthResponse> {
     await delay(400)
@@ -38,11 +115,14 @@ export const authService = {
     if (user.password !== credentials.password) {
       throw new Error('Password salah')
     }
+    if (!user.restaurantIds.includes(credentials.restaurantId)) {
+      throw new Error('Akun Anda tidak memiliki akses ke restoran ini')
+    }
 
-    const { password: _password, ...safeUser } = user
     const response: AuthResponse = {
-      user: safeUser,
+      user: toSafeUser(user),
       token: generateToken(),
+      activeRestaurantId: credentials.restaurantId,
     }
     storage.set(SESSION_KEY, response)
     return response
@@ -59,15 +139,17 @@ export const authService = {
       email: payload.email,
       name: payload.name,
       password: payload.password,
+      role: payload.role ?? 'staff',
       createdAt: new Date().toISOString(),
+      restaurantIds: [payload.restaurantId],
     }
     users.push(newUser)
     saveUsers(users)
 
-    const { password: _password, ...safeUser } = newUser
     const response: AuthResponse = {
-      user: safeUser,
+      user: toSafeUser(newUser),
       token: generateToken(),
+      activeRestaurantId: payload.restaurantId,
     }
     storage.set(SESSION_KEY, response)
     return response
@@ -82,3 +164,5 @@ export const authService = {
     return storage.get<AuthResponse | null>(SESSION_KEY, null)
   },
 }
+
+export const SEED_DEMO_PASSWORD = SEED_PASSWORD

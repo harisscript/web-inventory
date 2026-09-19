@@ -1,4 +1,4 @@
-import { LogOut, Menu, Package, User } from 'lucide-react'
+import { LogOut, Menu, Package, Store, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,17 +15,24 @@ import {
 } from '@/shared/components/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/shared/components/ui/sheet'
 import { APP_NAME } from '@/shared/config/constants'
+import { cn } from '@/shared/lib/utils'
 import { useAuthStore } from '@/features/auth'
+import { restaurantService, useRestaurantSelectionStore } from '@/features/restaurant'
 
 export function Header() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
+  const activeRestaurantId = useAuthStore((s) => s.activeRestaurantId)
+  const clearSelection = useRestaurantSelectionStore((s) => s.clearSelection)
   const logout = useAuthStore((s) => s.logout)
+
+  const restaurant = activeRestaurantId ? restaurantService.getByIdSync(activeRestaurantId) : null
 
   const handleLogout = () => {
     logout()
-    void navigate('/login', { replace: true })
+    clearSelection()
+    void navigate('/select-restaurant', { replace: true })
   }
 
   return (
@@ -44,9 +51,7 @@ export function Header() {
                 {APP_NAME}
               </span>
             </div>
-            <nav className="flex flex-col gap-1 p-3">
-              {/* Mobile sheet links can be added here */}
-            </nav>
+            <nav className="flex flex-col gap-1 p-3">{/* Mobile sheet links */}</nav>
           </SheetContent>
         </Sheet>
       </div>
@@ -56,7 +61,41 @@ export function Header() {
         <span className="font-semibold">{APP_NAME}</span>
       </div>
 
+      <div className="hidden items-center gap-3 md:flex">
+        <Package className="h-5 w-5 text-primary" />
+        <span className="font-semibold">{APP_NAME}</span>
+        {restaurant ? (
+          <div className="flex items-center gap-2 rounded-md border bg-muted/40 px-2 py-1 text-xs">
+            <span
+              className={cn(
+                'flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br text-xs text-white',
+                restaurant.accentColor,
+              )}
+              aria-hidden="true"
+            >
+              {restaurant.emoji}
+            </span>
+            <Store className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="font-medium">{restaurant.name}</span>
+          </div>
+        ) : null}
+      </div>
+
       <div className="ml-auto flex items-center gap-1">
+        {restaurant ? (
+          <div className="flex items-center gap-2 rounded-md border bg-muted/40 px-2 py-1 text-xs md:hidden">
+            <span
+              className={cn(
+                'flex h-5 w-5 items-center justify-center rounded bg-gradient-to-br text-xs text-white',
+                restaurant.accentColor,
+              )}
+              aria-hidden="true"
+            >
+              {restaurant.emoji}
+            </span>
+            <span className="font-medium">{restaurant.name}</span>
+          </div>
+        ) : null}
         <LanguageSwitcher />
         <ThemeToggle />
         <DropdownMenu>

@@ -19,7 +19,11 @@ import { Input } from '@/shared/components/ui/input'
 import { useAuth } from '../hooks/use-auth'
 import { registerSchema, type RegisterInput } from '../schemas/auth.schema'
 
-export function RegisterForm() {
+interface RegisterFormProps {
+  restaurantId: string
+}
+
+export function RegisterForm({ restaurantId }: RegisterFormProps) {
   const { t } = useTranslation(['auth', 'common'])
   const navigate = useNavigate()
   const { register, isLoading } = useAuth()
@@ -31,7 +35,7 @@ export function RegisterForm() {
 
   const onSubmit = async (values: RegisterInput) => {
     try {
-      await register(values)
+      await register({ ...values, restaurantId })
       toast.success(t('registerSuccess'))
       void navigate('/inventory', { replace: true })
     } catch (err) {

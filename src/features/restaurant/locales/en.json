@@ -1,0 +1,14 @@
+{
+  "selectRestaurantTitle": "Select Restaurant",
+  "selectRestaurantSubtitle": "Choose the restaurant whose inventory you want to manage before signing in.",
+  "selectRestaurant": "Select this restaurant",
+  "loggedInTo": "Signing in to",
+  "changeRestaurant": "Change restaurant",
+  "loadingRestaurants": "Loading restaurants…",
+  "emptyState": "No restaurants are available for your account yet.",
+  "ownerOf": "Owner",
+  "errorLoading": "Failed to load restaurants",
+  "ownerAccess": "2 restaurants access",
+  "singleAccess": "1 restaurant access",
+  "demoOwnerHint": "Sign in as owner@kopikita.com to try switching restaurants."
+}
