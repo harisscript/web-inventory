@@ -24,6 +24,7 @@ export const registerSchema = z
     confirmPassword: z
       .string()
       .min(6, { error: () => ({ message: t('auth:confirmPasswordMin') }) }),
+    restaurantId: z.string().min(1, { error: () => ({ message: t('auth:restaurantRequired') }) }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     error: () => ({ message: t('auth:passwordMismatch') }),

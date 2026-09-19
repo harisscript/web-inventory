@@ -9,6 +9,7 @@ export function useAuth() {
   const register = useAuthStore((s) => s.register)
   const logout = useAuthStore((s) => s.logout)
   const clearError = useAuthStore((s) => s.clearError)
+  const setActiveRestaurant = useAuthStore((s) => s.setActiveRestaurant)
 
   return {
     user,
@@ -19,5 +20,6 @@ export function useAuth() {
     register,
     logout,
     clearError,
+    setActiveRestaurant,
   }
 }

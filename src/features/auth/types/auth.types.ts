@@ -10,19 +10,19 @@ export interface User {
 export interface AuthCredentials {
   email: string
   password: string
-  restaurantId: string
 }
 
 export interface RegisterPayload extends AuthCredentials {
   name: string
   confirmPassword: string
+  restaurantId: string
   role?: User['role']
 }
 
 export interface AuthResponse {
   user: User
   token: string
-  activeRestaurantId: string
+  activeRestaurantId: string | null
 }
 
 export interface AuthError {

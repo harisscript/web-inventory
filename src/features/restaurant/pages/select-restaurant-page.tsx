@@ -10,15 +10,13 @@ import { useAuthStore } from '@/features/auth'
 
 import { RestaurantCard } from '../components/restaurant-card'
 import { restaurantService } from '../services/restaurant.service'
-import { useRestaurantSelectionStore } from '../store/restaurant.store'
 import type { Restaurant } from '../types/restaurant.types'
 
 export function SelectRestaurantPage() {
   const { t } = useTranslation(['restaurant', 'common'])
   const navigate = useNavigate()
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
-  const setSelectedRestaurant = useRestaurantSelectionStore((s) => s.setSelectedRestaurant)
-  const clearSelection = useRestaurantSelectionStore((s) => s.clearSelection)
+  const user = useAuthStore((s) => s.user)
+  const setActiveRestaurant = useAuthStore((s) => s.setActiveRestaurant)
 
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -26,7 +24,14 @@ export function SelectRestaurantPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (!user) {
+      void navigate('/login', { replace: true })
+      return
+    }
+
+    const accessibleIds = user.restaurantIds
+    if (accessibleIds.length === 1) {
+      setActiveRestaurant(accessibleIds[0])
       void navigate('/inventory', { replace: true })
       return
     }
@@ -34,9 +39,13 @@ export function SelectRestaurantPage() {
     let active = true
     restaurantService
       .list()
-      .then((data) => {
+      .then((all) => {
         if (!active) return
-        setRestaurants(data)
+        const accessible = all.filter((r) => accessibleIds.includes(r.id))
+        setRestaurants(accessible)
+        if (accessible.length === 0) {
+          setError(t('restaurant:emptyState'))
+        }
       })
       .catch(() => {
         if (!active) return
@@ -49,35 +58,22 @@ export function SelectRestaurantPage() {
     return () => {
       active = false
     }
-  }, [isAuthenticated, navigate, t])
+  }, [user, navigate, setActiveRestaurant, t])
 
   const handleSelect = (restaurant: Restaurant) => {
     setSubmittingId(restaurant.id)
-    setSelectedRestaurant(restaurant.id)
-    // Defer navigation so the persisted state has a chance to flush
+    setActiveRestaurant(restaurant.id)
     setTimeout(() => {
-      void navigate('/login', { replace: false })
+      void navigate('/inventory', { replace: false })
       setSubmittingId(null)
     }, 50)
   }
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <div className="flex items-center justify-between gap-1 p-3">
-        <button
-          type="button"
-          onClick={() => {
-            clearSelection()
-            void navigate('/login', { replace: false })
-          }}
-          className="text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-        >
-          {t('restaurant:changeRestaurant')}
-        </button>
-        <div className="flex items-center gap-1">
-          <LanguageSwitcher />
-          <ThemeToggle />
-        </div>
+      <div className="flex items-center justify-end gap-1 p-3">
+        <LanguageSwitcher />
+        <ThemeToggle />
       </div>
 
       <div className="flex flex-1 items-center justify-center p-4">
@@ -117,7 +113,7 @@ export function SelectRestaurantPage() {
                 ))}
           </div>
 
-          {!isLoading && restaurants.length === 0 ? (
+          {!isLoading && restaurants.length === 0 && !error ? (
             <p className="rounded-md bg-muted/50 p-3 text-center text-sm text-muted-foreground">
               {t('restaurant:emptyState')}
             </p>

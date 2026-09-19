@@ -115,14 +115,11 @@ export const authService = {
     if (user.password !== credentials.password) {
       throw new Error('Password salah')
     }
-    if (!user.restaurantIds.includes(credentials.restaurantId)) {
-      throw new Error('Akun Anda tidak memiliki akses ke restoran ini')
-    }
 
     const response: AuthResponse = {
       user: toSafeUser(user),
       token: generateToken(),
-      activeRestaurantId: credentials.restaurantId,
+      activeRestaurantId: user.restaurantIds[0] ?? null,
     }
     storage.set(SESSION_KEY, response)
     return response

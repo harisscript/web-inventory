@@ -26,5 +26,6 @@
   "passwordMin": "Password must be at least 6 characters",
   "confirmPasswordMin": "Confirmation must be at least 6 characters",
   "nameMin": "Name must be at least 2 characters",
-  "passwordMismatch": "Passwords do not match"
+  "passwordMismatch": "Passwords do not match",
+  "restaurantRequired": "Please select a restaurant first"
 }

@@ -30,14 +30,20 @@ export function RegisterForm({ restaurantId }: RegisterFormProps) {
 
   const form = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
-    defaultValues: { name: '', email: '', password: '', confirmPassword: '' },
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      restaurantId,
+    },
   })
 
   const onSubmit = async (values: RegisterInput) => {
     try {
-      await register({ ...values, restaurantId })
+      await register(values)
       toast.success(t('registerSuccess'))
-      void navigate('/inventory', { replace: true })
+      void navigate('/select-restaurant', { replace: true })
     } catch (err) {
       const message = err instanceof Error ? err.message : t('common:errors.generic')
       toast.error(message)

@@ -19,6 +19,7 @@ interface AuthState {
   logout: () => void
   clearError: () => void
   hydrate: () => void
+  setActiveRestaurant: (id: string) => void
 }
 
 interface PersistedAuthState {
@@ -103,9 +104,26 @@ export const useAuthStore = create<AuthState>()(
           })
         }
       },
+
+      setActiveRestaurant(id) {
+        set({ activeRestaurantId: id })
+      },
     }),
     {
       name: 'inventory.auth',
+      version: 2,
+      migrate: (persistedState, version) => {
+        const state = (persistedState ?? {}) as Partial<PersistedAuthState>
+        if (version < 2) {
+          return {
+            user: state.user ?? null,
+            token: state.token ?? null,
+            activeRestaurantId: null,
+            isAuthenticated: state.isAuthenticated ?? false,
+          }
+        }
+        return state as PersistedAuthState
+      },
       partialize: (state): PersistedAuthState => ({
         user: state.user,
         token: state.token,

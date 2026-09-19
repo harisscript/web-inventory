@@ -26,5 +26,6 @@
   "passwordMin": "Password minimal 6 karakter",
   "confirmPasswordMin": "Konfirmasi password minimal 6 karakter",
   "nameMin": "Nama minimal 2 karakter",
-  "passwordMismatch": "Password tidak cocok"
+  "passwordMismatch": "Password tidak cocok",
+  "restaurantRequired": "Silakan pilih restoran terlebih dahulu"
 }

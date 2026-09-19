@@ -3,11 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { NavLink } from '@/shared/components/layout/nav-link'
 import { APP_NAME } from '@/shared/config/constants'
-
-const navItems = [{ to: '/inventory', key: 'inventory' as const }] as const
+import { useAuth } from '@/features/auth'
+import { getNavItemsForRole } from '@/features/auth/config/permissions'
 
 export function Sidebar() {
   const { t } = useTranslation()
+  const { user } = useAuth()
+  const navItems = getNavItemsForRole(user?.role)
 
   return (
     <aside className="hidden w-60 shrink-0 border-r bg-sidebar text-sidebar-foreground lg:block">
@@ -18,11 +20,15 @@ export function Sidebar() {
         </span>
       </div>
       <nav className="flex flex-col gap-1 p-3">
-        {navItems.map((item) => (
-          <NavLink key={item.to} to={item.to}>
-            {t(`nav.${item.key}`)}
-          </NavLink>
-        ))}
+        {navItems.map((item) => {
+          const Icon = item.icon
+          return (
+            <NavLink key={item.to} to={item.to} disabled={!item.enabled}>
+              <Icon className="h-4 w-4" />
+              {t(item.labelKey)}
+            </NavLink>
+          )
+        })}
       </nav>
     </aside>
   )

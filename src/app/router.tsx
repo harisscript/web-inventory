@@ -1,15 +1,24 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 
+import { RootRedirect } from '@/app/root-redirect'
 import { AppLayout } from '@/shared/components/layout/app-layout'
+import { ComingSoonPage } from '@/shared/components/coming-soon-page'
 import { LoginPage, ProtectedRoute, RegisterPage } from '@/features/auth'
-import { SelectRestaurantPage } from '@/features/restaurant'
 import { InventoryListPage } from '@/features/inventory'
+import { SelectRestaurantPage } from '@/features/restaurant'
 
 export const router = createBrowserRouter([
-  { path: '/', element: <Navigate to="/select-restaurant" replace /> },
-  { path: '/select-restaurant', element: <SelectRestaurantPage /> },
+  { path: '/', element: <RootRedirect /> },
   { path: '/login', element: <LoginPage /> },
-  { path: '/register', element: <RegisterPage /> },
+  { path: '/select-restaurant', element: <SelectRestaurantPage /> },
+  {
+    path: '/register',
+    element: (
+      <ProtectedRoute allowedRoles={['owner', 'manager']}>
+        <RegisterPage />
+      </ProtectedRoute>
+    ),
+  },
   {
     path: '/',
     element: (
@@ -17,7 +26,12 @@ export const router = createBrowserRouter([
         <AppLayout />
       </ProtectedRoute>
     ),
-    children: [{ path: 'inventory', element: <InventoryListPage /> }],
+    children: [
+      { path: 'inventory', element: <InventoryListPage /> },
+      { path: 'dashboard', element: <ComingSoonPage titleKey="nav.dashboard" /> },
+      { path: 'products', element: <ComingSoonPage titleKey="nav.products" /> },
+      { path: 'settings', element: <ComingSoonPage titleKey="nav.settings" /> },
+    ],
   },
   {
     path: '*',
@@ -25,8 +39,8 @@ export const router = createBrowserRouter([
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4 text-center">
         <h1 className="text-4xl font-bold">404</h1>
         <p className="text-muted-foreground">Halaman tidak ditemukan</p>
-        <a href="/select-restaurant" className="text-primary hover:underline">
-          Kembali ke pemilihan restoran
+        <a href="/inventory" className="text-primary hover:underline">
+          Kembali ke beranda
         </a>
       </div>
     ),
