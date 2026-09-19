@@ -1,0 +1,72 @@
+{
+  "app": {
+    "name": "Web Inventory",
+    "tagline": "Manage your inventory anywhere"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "inventory": "Inventory",
+    "products": "Products",
+    "settings": "Settings",
+    "logout": "Logout",
+    "menu": "Menu"
+  },
+  "common": {
+    "search": "Search",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "actions": "Actions",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "name": "Name",
+    "description": "Description",
+    "category": "Category",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "noData": "No data available",
+    "retry": "Retry",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "minLength": "{{field}} must be at least {{min}} characters",
+    "maxLength": "{{field}} must be at most {{max}} characters",
+    "email": "Please enter a valid email",
+    "min": "{{field}} must be at least {{min}}",
+    "max": "{{field}} must be at most {{max}}",
+    "positive": "{{field}} must be a positive number"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "network": "Network error, please try again",
+    "unauthorized": "You are not authorized",
+    "notFound": "Not found",
+    "sessionExpired": "Session expired, please login again"
+  },
+  "install": {
+    "title": "Install App",
+    "description": "Install this app on your device for quick access and offline use.",
+    "install": "Install",
+    "dismiss": "Not now",
+    "iosInstructions": "Tap the share button, then \"Add to Home Screen\""
+  }
+}

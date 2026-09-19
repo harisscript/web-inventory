@@ -1,0 +1,72 @@
+{
+  "app": {
+    "name": "Web Inventory",
+    "tagline": "Kelola inventaris Anda di mana saja"
+  },
+  "nav": {
+    "dashboard": "Dasbor",
+    "inventory": "Inventaris",
+    "products": "Produk",
+    "settings": "Pengaturan",
+    "logout": "Keluar",
+    "menu": "Menu"
+  },
+  "common": {
+    "search": "Cari",
+    "loading": "Memuat…",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "create": "Buat",
+    "update": "Perbarui",
+    "submit": "Kirim",
+    "confirm": "Konfirmasi",
+    "yes": "Ya",
+    "no": "Tidak",
+    "back": "Kembali",
+    "next": "Berikutnya",
+    "previous": "Sebelumnya",
+    "close": "Tutup",
+    "actions": "Aksi",
+    "filter": "Filter",
+    "all": "Semua",
+    "none": "Tidak ada",
+    "name": "Nama",
+    "description": "Deskripsi",
+    "category": "Kategori",
+    "price": "Harga",
+    "quantity": "Jumlah",
+    "total": "Total",
+    "noData": "Tidak ada data",
+    "retry": "Coba lagi",
+    "language": "Bahasa",
+    "theme": "Tema",
+    "light": "Terang",
+    "dark": "Gelap",
+    "system": "Sistem"
+  },
+  "validation": {
+    "required": "{{field}} wajib diisi",
+    "minLength": "{{field}} minimal {{min}} karakter",
+    "maxLength": "{{field}} maksimal {{max}} karakter",
+    "email": "Mohon masukkan email yang valid",
+    "min": "{{field}} minimal {{min}}",
+    "max": "{{field}} maksimal {{max}}",
+    "positive": "{{field}} harus angka positif"
+  },
+  "errors": {
+    "generic": "Terjadi kesalahan",
+    "network": "Gagal terhubung, silakan coba lagi",
+    "unauthorized": "Anda tidak diizinkan",
+    "notFound": "Tidak ditemukan",
+    "sessionExpired": "Sesi berakhir, silakan login kembali"
+  },
+  "install": {
+    "title": "Pasang Aplikasi",
+    "description": "Pasang aplikasi ini di perangkat Anda untuk akses cepat dan penggunaan offline.",
+    "install": "Pasang",
+    "dismiss": "Nanti",
+    "iosInstructions": "Ketuk tombol bagikan, lalu \"Tambah ke Layar Utama\""
+  }
+}
