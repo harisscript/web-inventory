@@ -5,7 +5,7 @@ import { NavLink, type NavTone } from '@/shared/components/layout/nav-link'
 import { Avatar, AvatarFallback } from '@/shared/components/ui/avatar'
 import { APP_DESCRIPTION, APP_NAME } from '@/shared/config/constants'
 import { cn } from '@/shared/lib/utils'
-import { useAuth, useAuthStore } from '@/features/auth'
+import { useAuth, useAuthStore, ROLE_LABELS } from '@/features/auth'
 import { getNavItemsForRole } from '@/features/auth/config/permissions'
 import { restaurantService } from '@/features/restaurant'
 
@@ -118,7 +118,7 @@ export function Sidebar() {
           </div>
           {user?.role ? (
             <span className="inline-flex shrink-0 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-primary">
-              {user.role}
+              {ROLE_LABELS[user.role]}
             </span>
           ) : null}
         </div>

@@ -1,5 +1,4 @@
 import {
-  Activity,
   BarChart3,
   Boxes,
   Carrot,
@@ -13,9 +12,101 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 
-import type { User } from '../types/auth.types'
+import type { AccessLevel, Action, Resource, Role, User } from '../types/auth.types'
 
-export type NavKey =
+const ACCESS_RANK: Record<AccessLevel, number> = {
+  none: 0,
+  view: 1,
+  edit: 2,
+  full: 3,
+}
+
+const ACTION_MIN_LEVEL: Record<Action, AccessLevel> = {
+  view: 'view',
+  create: 'edit',
+  edit: 'edit',
+  delete: 'full',
+}
+
+export const ROLE_PERMISSIONS: Record<Role, Record<Resource, AccessLevel>> = {
+  super_admin: {
+    dashboard: 'full',
+    outlets: 'full',
+    ingredients: 'full',
+    menus: 'full',
+    recipes: 'full',
+    inventory: 'full',
+    purchases: 'full',
+    stockHistory: 'full',
+    reports: 'full',
+    settings: 'full',
+  },
+  owner: {
+    dashboard: 'full',
+    outlets: 'full',
+    ingredients: 'full',
+    menus: 'full',
+    recipes: 'full',
+    inventory: 'full',
+    purchases: 'full',
+    stockHistory: 'full',
+    reports: 'full',
+    settings: 'edit',
+  },
+  outlet_manager: {
+    dashboard: 'full',
+    outlets: 'view',
+    ingredients: 'edit',
+    menus: 'edit',
+    recipes: 'edit',
+    inventory: 'full',
+    purchases: 'full',
+    stockHistory: 'full',
+    reports: 'full',
+    settings: 'none',
+  },
+  inventory_staff: {
+    dashboard: 'view',
+    outlets: 'none',
+    ingredients: 'edit',
+    menus: 'view',
+    recipes: 'view',
+    inventory: 'full',
+    purchases: 'full',
+    stockHistory: 'view',
+    reports: 'view',
+    settings: 'none',
+  },
+  viewer: {
+    dashboard: 'view',
+    outlets: 'view',
+    ingredients: 'view',
+    menus: 'view',
+    recipes: 'view',
+    inventory: 'view',
+    purchases: 'view',
+    stockHistory: 'view',
+    reports: 'full',
+    settings: 'none',
+  },
+}
+
+export function getAccessLevel(role: Role | undefined, resource: Resource): AccessLevel {
+  if (!role) return 'none'
+  return ROLE_PERMISSIONS[role][resource]
+}
+
+export function can(role: Role | undefined, resource: Resource, action: Action = 'view'): boolean {
+  const level = getAccessLevel(role, resource)
+  return ACCESS_RANK[level] >= ACCESS_RANK[ACTION_MIN_LEVEL[action]]
+}
+
+export function canAny(role: Role | undefined, pairs: Array<[Resource, Action]>): boolean {
+  return pairs.some(([resource, action]) => can(role, resource, action))
+}
+
+export type NavKey = Extract<
+  Resource,
   | 'dashboard'
   | 'outlets'
   | 'ingredients'
@@ -24,9 +115,9 @@ export type NavKey =
   | 'inventory'
   | 'purchases'
   | 'stockHistory'
-  | 'stockReport'
-  | 'usageReport'
+  | 'reports'
   | 'settings'
+>
 
 export interface NavItemConfig {
   to: string
@@ -34,6 +125,7 @@ export interface NavItemConfig {
   labelKey: string
   icon: LucideIcon
   enabled: boolean
+  accessLevel: AccessLevel
 }
 
 export type NavSectionId = 'main' | 'masterData' | 'operations' | 'reports' | 'system'
@@ -56,8 +148,7 @@ const ICONS: Record<NavKey, LucideIcon> = {
   inventory: Boxes,
   purchases: ShoppingCart,
   stockHistory: History,
-  stockReport: BarChart3,
-  usageReport: Activity,
+  reports: BarChart3,
   settings: SettingsIcon,
 }
 
@@ -70,8 +161,7 @@ const PATHS: Record<NavKey, string> = {
   inventory: '/inventory',
   purchases: '/purchases',
   stockHistory: '/stock-history',
-  stockReport: '/stock-report',
-  usageReport: '/usage-report',
+  reports: '/reports',
   settings: '/settings',
 }
 
@@ -90,7 +180,7 @@ const SECTIONS: Record<NavSectionId, { labelKey: string | null; tone: NavTone; k
   reports: {
     labelKey: 'nav.section.reports',
     tone: 'sky',
-    keys: ['stockReport', 'usageReport'],
+    keys: ['reports'],
   },
   system: {
     labelKey: 'nav.section.system',
@@ -99,43 +189,52 @@ const SECTIONS: Record<NavSectionId, { labelKey: string | null; tone: NavTone; k
   },
 }
 
-function isAllowed(role: User['role'], key: NavKey): boolean {
-  if (role === 'owner' || role === 'manager') return true
-  return key === 'dashboard' || key === 'inventory'
-}
+const PRIMARY_NAV_ORDER: NavKey[] = [
+  'dashboard',
+  'inventory',
+  'purchases',
+  'stockHistory',
+  'settings',
+]
 
 function buildNavSections(role: User['role']): NavSectionConfig[] {
   return (Object.keys(SECTIONS) as NavSectionId[]).map((id) => {
     const { labelKey, tone, keys } = SECTIONS[id]
     const items: NavItemConfig[] = keys
-      .filter((key) => isAllowed(role, key))
-      .map((key) => ({
-        to: PATHS[key],
-        key,
-        labelKey: `nav.${key}`,
-        icon: ICONS[key],
-        enabled: role === 'owner' || role === 'manager' || key === 'dashboard',
-      }))
+      .map((key) => {
+        const accessLevel = getAccessLevel(role, key)
+        const enabled = ACCESS_RANK[accessLevel] >= ACCESS_RANK.view
+        return {
+          to: PATHS[key],
+          key,
+          labelKey: `nav.${key}`,
+          icon: ICONS[key],
+          enabled,
+          accessLevel,
+        }
+      })
+      .filter((item) => item.enabled)
+
     return { id, labelKey, tone, items }
   })
 }
 
 export const ROLE_NAV_PERMISSIONS: Record<User['role'], NavSectionConfig[]> = {
+  super_admin: buildNavSections('super_admin'),
   owner: buildNavSections('owner'),
-  manager: buildNavSections('manager'),
-  staff: buildNavSections('staff'),
+  outlet_manager: buildNavSections('outlet_manager'),
+  inventory_staff: buildNavSections('inventory_staff'),
+  viewer: buildNavSections('viewer'),
 }
 
 export function getNavItemsForRole(role: User['role'] | undefined): NavSectionConfig[] {
-  if (!role) return ROLE_NAV_PERMISSIONS.staff
+  if (!role) return ROLE_NAV_PERMISSIONS.viewer
   return ROLE_NAV_PERMISSIONS[role]
 }
 
 export function getPrimaryNavItemsForRole(role: User['role'] | undefined): NavItemConfig[] {
-  const sections = getNavItemsForRole(role)
-  const items = sections.flatMap((section) => section.items)
-  const order: NavKey[] = ['dashboard', 'inventory', 'purchases', 'stockHistory', 'settings']
-  return order
-    .map((key) => items.find((item) => item.key === key))
-    .filter((item): item is NavItemConfig => Boolean(item))
+  const items = getNavItemsForRole(role).flatMap((section) => section.items)
+  return PRIMARY_NAV_ORDER.map((key) => items.find((item) => item.key === key)).filter(
+    (item): item is NavItemConfig => Boolean(item),
+  )
 }

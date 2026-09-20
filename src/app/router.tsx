@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     element: (
-      <ProtectedRoute allowedRoles={['owner', 'manager']}>
+      <ProtectedRoute allowedRoles={['super_admin', 'owner']}>
         <RegisterPage />
       </ProtectedRoute>
     ),
@@ -27,17 +27,86 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { path: 'inventory', element: <InventoryListPage /> },
-      { path: 'dashboard', element: <ComingSoonPage titleKey="nav.dashboard" /> },
-      { path: 'outlets', element: <ComingSoonPage titleKey="nav.outlets" /> },
-      { path: 'ingredients', element: <ComingSoonPage titleKey="nav.ingredients" /> },
-      { path: 'menus', element: <ComingSoonPage titleKey="nav.menus" /> },
-      { path: 'recipes', element: <ComingSoonPage titleKey="nav.recipes" /> },
-      { path: 'purchases', element: <ComingSoonPage titleKey="nav.purchases" /> },
-      { path: 'stock-history', element: <ComingSoonPage titleKey="nav.stockHistory" /> },
-      { path: 'stock-report', element: <ComingSoonPage titleKey="nav.stockReport" /> },
-      { path: 'usage-report', element: <ComingSoonPage titleKey="nav.usageReport" /> },
-      { path: 'settings', element: <ComingSoonPage titleKey="nav.settings" /> },
+      {
+        path: 'inventory',
+        element: (
+          <ProtectedRoute resource="inventory" action="view">
+            <InventoryListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'dashboard',
+        element: (
+          <ProtectedRoute resource="dashboard" action="view">
+            <ComingSoonPage titleKey="nav.dashboard" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'outlets',
+        element: (
+          <ProtectedRoute resource="outlets" action="view">
+            <ComingSoonPage titleKey="nav.outlets" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'ingredients',
+        element: (
+          <ProtectedRoute resource="ingredients" action="view">
+            <ComingSoonPage titleKey="nav.ingredients" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'menus',
+        element: (
+          <ProtectedRoute resource="menus" action="view">
+            <ComingSoonPage titleKey="nav.menus" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'recipes',
+        element: (
+          <ProtectedRoute resource="recipes" action="view">
+            <ComingSoonPage titleKey="nav.recipes" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'purchases',
+        element: (
+          <ProtectedRoute resource="purchases" action="view">
+            <ComingSoonPage titleKey="nav.purchases" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'stock-history',
+        element: (
+          <ProtectedRoute resource="stockHistory" action="view">
+            <ComingSoonPage titleKey="nav.stockHistory" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'reports',
+        element: (
+          <ProtectedRoute resource="reports" action="view">
+            <ComingSoonPage titleKey="nav.reports" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'settings',
+        element: (
+          <ProtectedRoute resource="settings" action="view">
+            <ComingSoonPage titleKey="nav.settings" />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {

@@ -20,6 +20,15 @@ function buildSeedUsers(): StoredUser[] {
 
   return [
     {
+      id: 'usr_seed_super_admin',
+      email: 'superadmin@kopikita.com',
+      name: 'Budi Hartono',
+      password: SEED_PASSWORD,
+      role: 'super_admin',
+      createdAt: now,
+      restaurantIds: [warung, sakura],
+    },
+    {
       id: 'usr_seed_owner',
       email: 'owner@kopikita.com',
       name: 'Andi Wijaya',
@@ -33,7 +42,7 @@ function buildSeedUsers(): StoredUser[] {
       email: 'manager.warung@kopikita.com',
       name: 'Siti Aminah',
       password: SEED_PASSWORD,
-      role: 'manager',
+      role: 'outlet_manager',
       createdAt: now,
       restaurantIds: [warung],
     },
@@ -42,7 +51,7 @@ function buildSeedUsers(): StoredUser[] {
       email: 'manager.sakura@kopikita.com',
       name: 'Hiroshi Tanaka',
       password: SEED_PASSWORD,
-      role: 'manager',
+      role: 'outlet_manager',
       createdAt: now,
       restaurantIds: [sakura],
     },
@@ -51,7 +60,7 @@ function buildSeedUsers(): StoredUser[] {
       email: 'staff.warung@kopikita.com',
       name: 'Joko Susilo',
       password: SEED_PASSWORD,
-      role: 'staff',
+      role: 'inventory_staff',
       createdAt: now,
       restaurantIds: [warung],
     },
@@ -60,9 +69,18 @@ function buildSeedUsers(): StoredUser[] {
       email: 'staff.sakura@kopikita.com',
       name: 'Yuki Sato',
       password: SEED_PASSWORD,
-      role: 'staff',
+      role: 'inventory_staff',
       createdAt: now,
       restaurantIds: [sakura],
+    },
+    {
+      id: 'usr_seed_viewer',
+      email: 'viewer@kopikita.com',
+      name: 'Dewi Lestari',
+      password: SEED_PASSWORD,
+      role: 'viewer',
+      createdAt: now,
+      restaurantIds: [warung, sakura],
     },
   ]
 }
@@ -136,7 +154,7 @@ export const authService = {
       email: payload.email,
       name: payload.name,
       password: payload.password,
-      role: payload.role ?? 'staff',
+      role: payload.role ?? 'inventory_staff',
       createdAt: new Date().toISOString(),
       restaurantIds: [payload.restaurantId],
     }

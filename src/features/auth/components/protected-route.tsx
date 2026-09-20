@@ -2,14 +2,17 @@ import type { ReactNode } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { useAuthStore } from '../store/auth.store'
-import type { User } from '../types/auth.types'
+import { can } from '../config/permissions'
+import type { Action, Resource, Role } from '../types/auth.types'
 
 interface ProtectedRouteProps {
   children: ReactNode
-  allowedRoles?: User['role'][]
+  allowedRoles?: Role[]
+  resource?: Resource
+  action?: Action
 }
 
-export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
+export function ProtectedRoute({ children, allowedRoles, resource, action }: ProtectedRouteProps) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated)
   const user = useAuthStore((s) => s.user)
   const location = useLocation()
@@ -18,7 +21,11 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
     return <Navigate to="/login" replace state={{ from: location }} />
   }
 
-  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+  const role = user?.role
+  const rolesAllowed = !allowedRoles || (role !== undefined && allowedRoles.includes(role))
+  const resourceAllowed = !resource || can(role, resource, action)
+
+  if (!rolesAllowed || !resourceAllowed) {
     return <Navigate to="/inventory" replace />
   }
 
