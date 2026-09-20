@@ -100,6 +100,7 @@ export function Header() {
                           section.tone === 'amber' && 'bg-amber-500',
                           section.tone === 'emerald' && 'bg-emerald-500',
                           section.tone === 'sky' && 'bg-sky-500',
+                          section.tone === 'slate' && 'bg-slate-500',
                         )}
                       />
                       <h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">

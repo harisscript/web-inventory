@@ -1,14 +1,17 @@
-import { NavLink as RouterNavLink } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { cn } from '@/shared/lib/utils'
+import { NavLink as RouterNavLink } from 'react-router-dom'
 
-export type NavTone = 'primary' | 'amber' | 'emerald'
+import { cn } from '@/shared/lib/utils'
+import type { NavTone } from '@/features/auth/config/permissions'
+
+export type { NavTone }
 
 const TONE_ACTIVE_BG: Record<NavTone, string> = {
   primary: 'bg-primary text-primary-foreground',
   amber: 'bg-amber-500 text-white',
   emerald: 'bg-emerald-500 text-white',
   sky: 'bg-sky-500 text-white',
+  slate: 'bg-slate-500 text-white',
 }
 
 const TONE_INACTIVE_BG: Record<NavTone, string> = {
@@ -16,6 +19,7 @@ const TONE_INACTIVE_BG: Record<NavTone, string> = {
   amber: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
   emerald: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
   sky: 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+  slate: 'bg-slate-500/10 text-slate-600 dark:text-slate-400',
 }
 
 const TONE_ACCENT: Record<NavTone, string> = {
@@ -23,6 +27,7 @@ const TONE_ACCENT: Record<NavTone, string> = {
   amber: 'bg-amber-500',
   emerald: 'bg-emerald-500',
   sky: 'bg-sky-500',
+  slate: 'bg-slate-500',
 }
 
 interface NavLinkProps {

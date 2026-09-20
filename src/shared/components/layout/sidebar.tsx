@@ -14,6 +14,7 @@ const TONE_DOT: Record<NavTone, string> = {
   amber: 'bg-amber-500',
   emerald: 'bg-emerald-500',
   sky: 'bg-sky-500',
+  slate: 'bg-slate-500',
 }
 
 function getInitials(name: string | undefined): string {
@@ -36,7 +37,7 @@ export function Sidebar() {
   const userInitials = getInitials(user?.name)
 
   return (
-    <aside className="hidden w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
+    <aside className="hidden h-full w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
       <div className="safe-top flex h-16 items-center gap-3 border-b border-sidebar-border px-4">
         <span
           aria-hidden="true"
@@ -68,7 +69,7 @@ export function Sidebar() {
         </div>
       ) : null}
 
-      <nav className="flex-1 overflow-y-auto p-3">
+      <nav className="min-h-0 flex-1 overflow-y-auto p-3">
         <div className="flex flex-col gap-5">
           {navSections.map((section) => (
             <div key={section.id} className="flex flex-col gap-1">

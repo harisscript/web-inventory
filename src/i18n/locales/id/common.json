@@ -5,28 +5,25 @@
   },
   "nav": {
     "dashboard": "Dasbor",
+    "outlets": "Outlet",
     "inventory": "Inventaris",
     "products": "Produk",
     "ingredients": "Bahan",
-    "recipes": "Resep Menu",
-    "suppliers": "Supplier",
-    "stock": "Stok Bahan",
-    "stockOpname": "Stok Opname",
-    "stockMovement": "Mutasi Stok",
-    "waste": "Pembuangan",
-    "purchaseOrders": "Pembelian",
+    "menus": "Menu",
+    "recipes": "Resep",
+    "purchases": "Pembelian",
+    "stockHistory": "Riwayat Stok",
     "stockReport": "Laporan Stok",
     "usageReport": "Laporan Penggunaan",
-    "recipeCost": "HPP Menu",
-    "lowStockAlerts": "Peringatan Stok",
     "settings": "Pengaturan",
     "logout": "Keluar",
     "menu": "Menu",
     "comingSoon": "Segera hadir",
     "section": {
       "masterData": "Master Data",
-      "operasional": "Operasional",
-      "laporan": "Laporan"
+      "operations": "Operasional",
+      "reports": "Laporan",
+      "system": "Sistem"
     }
   },
   "common": {

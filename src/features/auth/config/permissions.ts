@@ -1,18 +1,15 @@
 import {
   Activity,
-  ArrowLeftRight,
   BarChart3,
-  BellRing,
   Boxes,
-  Calculator,
   Carrot,
-  ClipboardList,
+  History,
   LayoutDashboard,
   ScrollText,
   Settings as SettingsIcon,
   ShoppingCart,
-  Trash2,
-  Truck,
+  Store,
+  UtensilsCrossed,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -20,18 +17,15 @@ import type { User } from '../types/auth.types'
 
 export type NavKey =
   | 'dashboard'
+  | 'outlets'
   | 'ingredients'
+  | 'menus'
   | 'recipes'
-  | 'suppliers'
-  | 'stock'
-  | 'stockOpname'
-  | 'stockMovement'
-  | 'waste'
-  | 'purchaseOrders'
+  | 'inventory'
+  | 'purchases'
+  | 'stockHistory'
   | 'stockReport'
   | 'usageReport'
-  | 'recipeCost'
-  | 'lowStockAlerts'
   | 'settings'
 
 export interface NavItemConfig {
@@ -42,9 +36,9 @@ export interface NavItemConfig {
   enabled: boolean
 }
 
-export type NavSectionId = 'main' | 'masterData' | 'operasional' | 'laporan'
+export type NavSectionId = 'main' | 'masterData' | 'operations' | 'reports' | 'system'
 
-export type NavTone = 'primary' | 'amber' | 'emerald' | 'sky'
+export type NavTone = 'primary' | 'amber' | 'emerald' | 'sky' | 'slate'
 
 export interface NavSectionConfig {
   id: NavSectionId
@@ -55,35 +49,29 @@ export interface NavSectionConfig {
 
 const ICONS: Record<NavKey, LucideIcon> = {
   dashboard: LayoutDashboard,
+  outlets: Store,
   ingredients: Carrot,
+  menus: UtensilsCrossed,
   recipes: ScrollText,
-  suppliers: Truck,
-  stock: Boxes,
-  stockOpname: ClipboardList,
-  stockMovement: ArrowLeftRight,
-  waste: Trash2,
-  purchaseOrders: ShoppingCart,
+  inventory: Boxes,
+  purchases: ShoppingCart,
+  stockHistory: History,
   stockReport: BarChart3,
   usageReport: Activity,
-  recipeCost: Calculator,
-  lowStockAlerts: BellRing,
   settings: SettingsIcon,
 }
 
 const PATHS: Record<NavKey, string> = {
   dashboard: '/dashboard',
+  outlets: '/outlets',
   ingredients: '/ingredients',
+  menus: '/menus',
   recipes: '/recipes',
-  suppliers: '/suppliers',
-  stock: '/stock',
-  stockOpname: '/stock-opname',
-  stockMovement: '/stock-movement',
-  waste: '/waste',
-  purchaseOrders: '/purchase-orders',
+  inventory: '/inventory',
+  purchases: '/purchases',
+  stockHistory: '/stock-history',
   stockReport: '/stock-report',
   usageReport: '/usage-report',
-  recipeCost: '/recipe-cost',
-  lowStockAlerts: '/low-stock-alerts',
   settings: '/settings',
 }
 
@@ -92,23 +80,28 @@ const SECTIONS: Record<NavSectionId, { labelKey: string | null; tone: NavTone; k
   masterData: {
     labelKey: 'nav.section.masterData',
     tone: 'amber',
-    keys: ['ingredients', 'recipes', 'suppliers'],
+    keys: ['outlets', 'ingredients', 'menus', 'recipes'],
   },
-  operasional: {
-    labelKey: 'nav.section.operasional',
+  operations: {
+    labelKey: 'nav.section.operations',
     tone: 'emerald',
-    keys: ['stock', 'stockOpname', 'stockMovement', 'waste', 'purchaseOrders'],
+    keys: ['inventory', 'purchases', 'stockHistory'],
   },
-  laporan: {
-    labelKey: 'nav.section.laporan',
+  reports: {
+    labelKey: 'nav.section.reports',
     tone: 'sky',
-    keys: ['stockReport', 'usageReport', 'recipeCost', 'lowStockAlerts'],
+    keys: ['stockReport', 'usageReport'],
+  },
+  system: {
+    labelKey: 'nav.section.system',
+    tone: 'slate',
+    keys: ['settings'],
   },
 }
 
 function isAllowed(role: User['role'], key: NavKey): boolean {
   if (role === 'owner' || role === 'manager') return true
-  return key === 'dashboard' || key === 'stock'
+  return key === 'dashboard' || key === 'inventory'
 }
 
 function buildNavSections(role: User['role']): NavSectionConfig[] {
@@ -141,7 +134,7 @@ export function getNavItemsForRole(role: User['role'] | undefined): NavSectionCo
 export function getPrimaryNavItemsForRole(role: User['role'] | undefined): NavItemConfig[] {
   const sections = getNavItemsForRole(role)
   const items = sections.flatMap((section) => section.items)
-  const order: NavKey[] = ['dashboard', 'stock', 'stockOpname', 'stockMovement', 'lowStockAlerts']
+  const order: NavKey[] = ['dashboard', 'inventory', 'purchases', 'stockHistory', 'settings']
   return order
     .map((key) => items.find((item) => item.key === key))
     .filter((item): item is NavItemConfig => Boolean(item))
