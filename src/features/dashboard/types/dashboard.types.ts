@@ -12,7 +12,8 @@ export type StockAlertSeverity = 'low' | 'out'
 export interface StockAlertItem {
   id: string
   name: string
-  amount: number
+  currentStock: number
+  minStock: number
   unit: string
   severity: StockAlertSeverity
 }
@@ -31,4 +32,16 @@ export interface TopUsedIngredient {
   name: string
   amount: number
   unit: string
+}
+
+export type RecentActivityType = 'stockIn' | 'stockOut' | 'adjustment' | 'transfer' | 'purchase'
+
+export interface RecentActivityItem {
+  id: string
+  type: RecentActivityType
+  title: string
+  description: string
+  outlet?: string
+  amount?: string
+  timestamp: string
 }

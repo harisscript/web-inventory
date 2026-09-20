@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/shared/components/ui/button'
 
+import { RecentActivityCard } from '../components/recent-activity-card'
 import { StockAlertCard } from '../components/stock-alert-card'
 import { StockMovementCard } from '../components/stock-movement-card'
 import { SummaryCard } from '../components/summary-card'
 import { TopUsedIngredientsCard } from '../components/top-used-ingredients-card'
 import {
   dashboardSummaryMock,
+  recentActivityMock,
   stockAlertMock,
   stockMovementMock,
   topUsedIngredientsMock,
@@ -45,6 +47,7 @@ export function DashboardPage() {
           <StockAlertCard items={stockAlertMock} />
           <TopUsedIngredientsCard ingredients={topUsedIngredientsMock} />
         </div>
+        <RecentActivityCard activities={recentActivityMock} />
       </div>
     </div>
   )

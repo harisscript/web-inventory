@@ -13,10 +13,22 @@
   },
   "stockAlert": {
     "title": "Stock Alert",
+    "subtitle": "Ingredients below their minimum stock threshold",
     "lowStock": "Low Stock",
     "outOfStock": "Out of Stock",
     "noItems": "No stock alerts at the moment",
-    "viewAll": "View all"
+    "viewAll": "View all",
+    "columns": {
+      "ingredient": "Ingredient",
+      "current": "Current",
+      "minStock": "Min Stock",
+      "unit": "Unit",
+      "status": "Status"
+    },
+    "status": {
+      "low": "Low",
+      "out": "Out"
+    }
   },
   "stockMovement": {
     "title": "Stock Movement",
@@ -34,6 +46,19 @@
     "rank": "Rank",
     "ingredient": "Ingredient",
     "usage": "Usage"
+  },
+  "recentActivity": {
+    "title": "Recent Activity",
+    "subtitle": "Latest stock changes across outlets",
+    "empty": "No recent activity yet",
+    "viewAll": "View all",
+    "types": {
+      "stockIn": "Stock In",
+      "stockOut": "Stock Out",
+      "adjustment": "Adjustment",
+      "transfer": "Transfer",
+      "purchase": "Purchase"
+    }
   },
   "actions": {
     "copy": "Copy",

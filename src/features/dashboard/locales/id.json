@@ -13,10 +13,22 @@
   },
   "stockAlert": {
     "title": "Peringatan Stok",
+    "subtitle": "Bahan yang berada di bawah ambang batas minimum",
     "lowStock": "Stok Menipis",
     "outOfStock": "Stok Habis",
     "noItems": "Tidak ada peringatan stok saat ini",
-    "viewAll": "Lihat semua"
+    "viewAll": "Lihat semua",
+    "columns": {
+      "ingredient": "Bahan",
+      "current": "Saat Ini",
+      "minStock": "Stok Min",
+      "unit": "Satuan",
+      "status": "Status"
+    },
+    "status": {
+      "low": "Menipis",
+      "out": "Habis"
+    }
   },
   "stockMovement": {
     "title": "Pergerakan Stok",
@@ -34,6 +46,19 @@
     "rank": "Peringkat",
     "ingredient": "Bahan",
     "usage": "Pemakaian"
+  },
+  "recentActivity": {
+    "title": "Aktivitas Terbaru",
+    "subtitle": "Perubahan stok terkini di seluruh outlet",
+    "empty": "Belum ada aktivitas terbaru",
+    "viewAll": "Lihat semua",
+    "types": {
+      "stockIn": "Stok Masuk",
+      "stockOut": "Stok Keluar",
+      "adjustment": "Penyesuaian",
+      "transfer": "Transfer",
+      "purchase": "Pembelian"
+    }
   },
   "actions": {
     "copy": "Salin",
