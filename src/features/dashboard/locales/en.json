@@ -1,0 +1,44 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Overview of your inventory and operations today",
+  "summary": {
+    "title": "Summary",
+    "totalOutlets": "Total Outlets",
+    "totalIngredients": "Total Ingredients",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "todayPurchase": "Today's Purchase",
+    "todayUsage": "Today's Usage",
+    "ingredientsUnit": "Ingredients"
+  },
+  "stockAlert": {
+    "title": "Stock Alert",
+    "lowStock": "Low Stock",
+    "outOfStock": "Out of Stock",
+    "noItems": "No stock alerts at the moment",
+    "viewAll": "View all"
+  },
+  "stockMovement": {
+    "title": "Stock Movement",
+    "subtitle": "Last 7 days",
+    "stockIn": "Stock In",
+    "stockOut": "Stock Out",
+    "adjustment": "Adjustment",
+    "totalIn": "Total In",
+    "totalOut": "Total Out",
+    "netChange": "Net Change"
+  },
+  "topUsed": {
+    "title": "Top Used Ingredients",
+    "subtitle": "Top 5 this week",
+    "rank": "Rank",
+    "ingredient": "Ingredient",
+    "usage": "Usage"
+  },
+  "actions": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "export": "Export",
+    "refresh": "Refresh"
+  }
+}

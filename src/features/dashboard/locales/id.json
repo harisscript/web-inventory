@@ -1,0 +1,44 @@
+{
+  "title": "Dasbor",
+  "subtitle": "Ringkasan inventaris dan operasional Anda hari ini",
+  "summary": {
+    "title": "Ringkasan",
+    "totalOutlets": "Total Outlet",
+    "totalIngredients": "Total Bahan",
+    "lowStock": "Stok Menipis",
+    "outOfStock": "Stok Habis",
+    "todayPurchase": "Pembelian Hari Ini",
+    "todayUsage": "Pemakaian Hari Ini",
+    "ingredientsUnit": "Bahan"
+  },
+  "stockAlert": {
+    "title": "Peringatan Stok",
+    "lowStock": "Stok Menipis",
+    "outOfStock": "Stok Habis",
+    "noItems": "Tidak ada peringatan stok saat ini",
+    "viewAll": "Lihat semua"
+  },
+  "stockMovement": {
+    "title": "Pergerakan Stok",
+    "subtitle": "7 hari terakhir",
+    "stockIn": "Stok Masuk",
+    "stockOut": "Stok Keluar",
+    "adjustment": "Penyesuaian",
+    "totalIn": "Total Masuk",
+    "totalOut": "Total Keluar",
+    "netChange": "Perubahan Bersih"
+  },
+  "topUsed": {
+    "title": "Bahan Paling Sering Dipakai",
+    "subtitle": "Top 5 minggu ini",
+    "rank": "Peringkat",
+    "ingredient": "Bahan",
+    "usage": "Pemakaian"
+  },
+  "actions": {
+    "copy": "Salin",
+    "copied": "Tersalin",
+    "export": "Ekspor",
+    "refresh": "Muat ulang"
+  }
+}

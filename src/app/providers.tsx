@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 
 import { Toaster } from '@/shared/components/ui/sonner'
+import { TooltipProvider } from '@/shared/components/ui/tooltip'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +28,7 @@ export function Providers({ children }: { children: ReactNode }) {
       storageKey="inventory.theme"
     >
       <QueryClientProvider client={queryClient}>
-        {children}
+        <TooltipProvider delayDuration={150}>{children}</TooltipProvider>
         <Toaster richColors position="top-right" closeButton />
         {import.meta.env.DEV && (
           <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />

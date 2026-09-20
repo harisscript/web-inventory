@@ -4,6 +4,7 @@ import { RootRedirect } from '@/app/root-redirect'
 import { AppLayout } from '@/shared/components/layout/app-layout'
 import { ComingSoonPage } from '@/shared/components/coming-soon-page'
 import { LoginPage, ProtectedRoute, RegisterPage } from '@/features/auth'
+import { DashboardPage } from '@/features/dashboard'
 import { InventoryListPage } from '@/features/inventory'
 import { SelectRestaurantPage } from '@/features/restaurant'
 
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
         path: 'dashboard',
         element: (
           <ProtectedRoute resource="dashboard" action="view">
-            <ComingSoonPage titleKey="nav.dashboard" />
+            <DashboardPage />
           </ProtectedRoute>
         ),
       },
