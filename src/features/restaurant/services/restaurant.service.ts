@@ -60,6 +60,10 @@ export const restaurantService = {
   getByIdSync(id: string): Restaurant | null {
     return load().find((r) => r.id === id) ?? null
   },
+
+  listSync(): Restaurant[] {
+    return load()
+  },
 }
 
 export { seedRestaurants }

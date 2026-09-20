@@ -1,0 +1,45 @@
+{
+  "title": "Outlet",
+  "subtitle": "Kelola daftar outlet dan informasi kontaknya",
+  "cardSubtitle": "Daftar outlet terdaftar",
+  "addOutlet": "Tambah outlet",
+  "editOutlet": "Edit outlet",
+  "addOutletDescription": "Isi formulir berikut untuk mendaftarkan outlet baru",
+  "editOutletDescription": "Perbarui informasi outlet di bawah ini",
+  "ingredients": "Bahan",
+  "status": {
+    "active": "Aktif",
+    "inactive": "Nonaktif"
+  },
+  "createSuccess": "Outlet berhasil dibuat",
+  "updateSuccess": "Outlet berhasil diperbarui",
+  "deleteSuccess": "Outlet berhasil dihapus",
+  "deleteConfirmTitle": "Hapus outlet?",
+  "deleteConfirmDescription": "Apakah Anda yakin ingin menghapus \"{{name}}\"? Tindakan ini tidak dapat dibatalkan.",
+  "errors": {
+    "generic": "Terjadi kesalahan"
+  },
+  "form": {
+    "restaurant": "Restaurant",
+    "name": "Nama outlet",
+    "status": "Status",
+    "address": "Alamat",
+    "city": "Kota",
+    "contactPerson": "Contact person",
+    "contactPhone": "Nomor telepon",
+    "defaultWarehouse": "Default warehouse",
+    "emoji": "Ikon",
+    "accentColor": "Warna aksen"
+  },
+  "nameMin": "Nama minimal 2 karakter",
+  "nameMax": "Nama maksimal 100 karakter",
+  "addressMin": "Alamat minimal 5 karakter",
+  "addressMax": "Alamat maksimal 200 karakter",
+  "cityMin": "Kota minimal 2 karakter",
+  "cityMax": "Kota maksimal 60 karakter",
+  "contactPersonMin": "Contact person minimal 2 karakter",
+  "contactPersonMax": "Contact person maksimal 100 karakter",
+  "contactPhoneMin": "Nomor telepon minimal 6 karakter",
+  "contactPhoneMax": "Nomor telepon maksimal 30 karakter",
+  "restaurantRequired": "Pilih restaurant terlebih dahulu"
+}

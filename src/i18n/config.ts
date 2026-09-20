@@ -12,6 +12,8 @@ import enRestaurant from '@/features/restaurant/locales/en.json'
 import idRestaurant from '@/features/restaurant/locales/id.json'
 import enDashboard from '@/features/dashboard/locales/en.json'
 import idDashboard from '@/features/dashboard/locales/id.json'
+import enOutlets from '@/features/outlets/locales/en.json'
+import idOutlets from '@/features/outlets/locales/id.json'
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '@/shared/config/constants'
 
 export const i18nResources = {
@@ -21,6 +23,7 @@ export const i18nResources = {
     inventory: enInventory,
     restaurant: enRestaurant,
     dashboard: enDashboard,
+    outlets: enOutlets,
   },
   id: {
     common: idCommon,
@@ -28,10 +31,18 @@ export const i18nResources = {
     inventory: idInventory,
     restaurant: idRestaurant,
     dashboard: idDashboard,
+    outlets: idOutlets,
   },
 } as const
 
-export const NAMESPACES = ['common', 'auth', 'inventory', 'restaurant', 'dashboard'] as const
+export const NAMESPACES = [
+  'common',
+  'auth',
+  'inventory',
+  'restaurant',
+  'dashboard',
+  'outlets',
+] as const
 
 void i18n
   .use(LanguageDetector)

@@ -1,0 +1,45 @@
+{
+  "title": "Outlets",
+  "subtitle": "Manage your outlet list and contact information",
+  "cardSubtitle": "Registered outlets",
+  "addOutlet": "Add outlet",
+  "editOutlet": "Edit outlet",
+  "addOutletDescription": "Fill in the form to register a new outlet",
+  "editOutletDescription": "Update the outlet information below",
+  "ingredients": "Ingredients",
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "createSuccess": "Outlet created",
+  "updateSuccess": "Outlet updated",
+  "deleteSuccess": "Outlet deleted",
+  "deleteConfirmTitle": "Delete outlet?",
+  "deleteConfirmDescription": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+  "errors": {
+    "generic": "Something went wrong"
+  },
+  "form": {
+    "restaurant": "Restaurant",
+    "name": "Outlet name",
+    "status": "Status",
+    "address": "Address",
+    "city": "City",
+    "contactPerson": "Contact person",
+    "contactPhone": "Phone number",
+    "defaultWarehouse": "Default warehouse",
+    "emoji": "Icon",
+    "accentColor": "Accent color"
+  },
+  "nameMin": "Name must be at least 2 characters",
+  "nameMax": "Name must be at most 100 characters",
+  "addressMin": "Address must be at least 5 characters",
+  "addressMax": "Address must be at most 200 characters",
+  "cityMin": "City must be at least 2 characters",
+  "cityMax": "City must be at most 60 characters",
+  "contactPersonMin": "Contact person must be at least 2 characters",
+  "contactPersonMax": "Contact person must be at most 100 characters",
+  "contactPhoneMin": "Phone must be at least 6 characters",
+  "contactPhoneMax": "Phone must be at most 30 characters",
+  "restaurantRequired": "Please select a restaurant"
+}
