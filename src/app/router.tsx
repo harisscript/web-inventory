@@ -7,6 +7,7 @@ import { LoginPage, ProtectedRoute, RegisterPage } from '@/features/auth'
 import { DashboardPage } from '@/features/dashboard'
 import { InventoryListPage } from '@/features/inventory'
 import { OutletsPage } from '@/features/outlets'
+import { IngredientsListPage } from '@/features/ingredients'
 import { SelectRestaurantPage } from '@/features/restaurant'
 
 export const router = createBrowserRouter([
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
         path: 'ingredients',
         element: (
           <ProtectedRoute resource="ingredients" action="view">
-            <ComingSoonPage titleKey="nav.ingredients" />
+            <IngredientsListPage />
           </ProtectedRoute>
         ),
       },

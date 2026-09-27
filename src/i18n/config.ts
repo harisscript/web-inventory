@@ -14,6 +14,8 @@ import enDashboard from '@/features/dashboard/locales/en.json'
 import idDashboard from '@/features/dashboard/locales/id.json'
 import enOutlets from '@/features/outlets/locales/en.json'
 import idOutlets from '@/features/outlets/locales/id.json'
+import enIngredients from '@/features/ingredients/locales/en.json'
+import idIngredients from '@/features/ingredients/locales/id.json'
 import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from '@/shared/config/constants'
 
 export const i18nResources = {
@@ -24,6 +26,7 @@ export const i18nResources = {
     restaurant: enRestaurant,
     dashboard: enDashboard,
     outlets: enOutlets,
+    ingredients: enIngredients,
   },
   id: {
     common: idCommon,
@@ -32,6 +35,7 @@ export const i18nResources = {
     restaurant: idRestaurant,
     dashboard: idDashboard,
     outlets: idOutlets,
+    ingredients: idIngredients,
   },
 } as const
 
@@ -42,6 +46,7 @@ export const NAMESPACES = [
   'restaurant',
   'dashboard',
   'outlets',
+  'ingredients',
 ] as const
 
 void i18n
